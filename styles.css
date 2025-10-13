@@ -1,0 +1,194 @@
+/* --- NEW: Reset default margin and box-sizing --- */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/* --- MODIFIED: Make body fill the viewport height --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0; /* Remove default margin */
+    padding: 20px;
+    height: 100vh; /* Set body height to 100% of the viewport height */
+    display: flex; /* Use flexbox to arrange children */
+    flex-direction: column; /* Stack children vertically */
+    gap: 20px; /* Add space between heading and container */
+}
+
+h1 {
+    text-align: center;
+    color: #005a8d;
+    flex-shrink: 0; /* Prevent the heading from shrinking */
+}
+
+/* --- MODIFIED: Make the container fill available space --- */
+.container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%; /* Ensure it uses full width up to max-width */
+    margin: 0 auto; /* Keep it centered */
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    flex-grow: 1; /* Allow the container to grow and fill remaining vertical space */
+    overflow: hidden; /* Prevent container from causing a scrollbar */
+}
+
+#map-container {
+    flex: 2;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex; /* Use flex to center the SVG */
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- NEW: Ensure SVG scales correctly within the container --- */
+#map-container svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* --- MODIFIED: Allow info-panel to scroll internally if needed --- */
+#info-panel {
+    flex: 1;
+    padding: 20px;
+    background-color: #eaf2f8;
+    border-radius: 8px;
+    margin-left: auto;
+    overflow: hidden; /* Add a vertical scrollbar ONLY if content overflows */
+}
+
+/* --- SVG Styles (No changes here) --- */
+.district {
+    fill: #aed581;
+    stroke: #558b2f;
+    stroke-width: 2;
+    transition: fill 0.3s ease;
+    cursor: pointer;
+}
+#tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none; 
+}
+
+        /* Targeting your existing class "st30" */
+.st30 {
+    stroke: #fff;
+    stroke-width: 1.5px;
+    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+        /* On hover, make other districts slightly transparent */
+svg:hover .st30:not(:hover) {
+    opacity: 0.5;
+}
+
+/* --- NEW: Styles for the tree information cards --- */
+
+.tree-card {
+    background-color: #ffffff; /* White background for the card */
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 15px; /* Space between cards */
+    border: 1px solid #dbe9f5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.tree-card h3 {
+    margin-top: 0;
+    color: #005a8d; /* Same color as the main heading */
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.tree-card p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.tree-card p strong {
+    color: #333;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.slider-wrapper {
+    display: flex;
+    /* The transition creates the smooth sliding animation */
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    /* Each slide takes up 100% of the container width */
+    flex: 0 0 100%;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.slide img {
+    max-width: 100%;
+    height: 200px; /* Give a fixed height to the image */
+    object-fit: cover; /* Make sure the image covers the area nicely */
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.slide-content h3 {
+    margin-top: 0;
+    color: #005a8d;
+}
+
+.slide-content p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+/* --- Slider Buttons --- */
+.slider-btn {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.slider-btn.prev {
+    left: 10px;
+}
+
+.slider-btn.next {
+    right: 10px;
+}
