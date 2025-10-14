@@ -46,14 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // List of districts for each data set
     const commonDistrictList = [
         "Sonepat", "Fatehabad", "Sirsa", "Hisar", "Bhiwani", "Charkhi Dadri",
-        "Jhajjar", "Gurgaon", "Nuh", "Palwal", "Faridabad", "Rohtak",
+        "Jhajjar", "Gurgaon", "Palwal", "Faridabad", "Rohtak",
         "Jind", "Panipat", "Kaithal"
     ];
     const northernDistrictList = [
         "Karnal", "Kurukshetra", "Ambala", "Yamunanagar", "Panchkula"
     ];
     const southernDistrictList = [
-        "Mahendragarh", "Rewari"
+        "Mahendragarh", "Rewari", "Nuh"
     ];
 
     // Programmatically create the main districtData object
