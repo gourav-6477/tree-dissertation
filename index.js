@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // DATA SET 1: For Central/Southern Districts
     const commonTreeData = [
         { treeName: "Neem (Azadirachta indica)", imageUrl: "assets/Neem.png" , cost: "₹150 - ₹300", soil: "Well-drained, sandy loam, clayey", water: "Low; drought-resistant", maintenance: "Low" },
-        { treeName: "Peepal (Ficus religiosa)", imageUrl: "E:/Desktop/Others/Tree Dissertation/assets/Peepal.png", cost: "₹100 - ₹250", soil: "Wide range, including sandy and clay", water: "Moderate", maintenance: "Very Low" },
+        { treeName: "Peepal (Ficus religiosa)", imageUrl: "assets/Peepal.png", cost: "₹100 - ₹250", soil: "Wide range, including sandy and clay", water: "Moderate", maintenance: "Very Low" },
         { treeName: "Shisham (Dalbergia sissoo)", imageUrl: "assets/Sheesham.png", cost: "₹200 - ₹350", soil: "Alluvial, sandy, and gravelly soils", water: "Moderate; needs good moisture", maintenance: "Low" },
         { treeName: "Jamun (Syzygium cumini)", imageUrl: "assets/Jamun.png", cost: "₹250 - ₹400", soil: "Loamy, well-drained soils", water: "High; thrives in moist conditions", maintenance: "Moderate" },
         { treeName: "Amaltas (Cassia fistula)", imageUrl: "assets/Amaltas.png", cost: "₹300 - ₹500", soil: "Well-drained soil", water: "Moderate; drought-tolerant", maintenance: "Low" },
