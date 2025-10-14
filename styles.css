@@ -13,7 +13,7 @@ body {
     color: #333;
     margin: 0; /* Remove default margin */
     padding: 20px;
-    height: 100vh; /* Set body height to 100% of the viewport height */
+    min-height: 100vh; /* Use min-height to ensure it fills screen but can grow */
     display: flex; /* Use flexbox to arrange children */
     flex-direction: column; /* Stack children vertically */
     gap: 20px; /* Add space between heading and container */
@@ -23,6 +23,7 @@ h1 {
     text-align: center;
     color: #005a8d;
     flex-shrink: 0; /* Prevent the heading from shrinking */
+    font-size: 2em; /* Default font size */
 }
 
 /* --- MODIFIED: Make the container fill available space --- */
@@ -37,7 +38,7 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     flex-grow: 1; /* Allow the container to grow and fill remaining vertical space */
-    overflow: hidden; /* Prevent container from causing a scrollbar */
+    overflow: hidden; /* Prevent container from causing a scrollbar on desktop */
 }
 
 #map-container {
@@ -48,6 +49,7 @@ h1 {
     display: flex; /* Use flex to center the SVG */
     align-items: center;
     justify-content: center;
+    min-height: 0; /* Fix for flexbox overflow bug in some browsers */
 }
 
 /* --- NEW: Ensure SVG scales correctly within the container --- */
@@ -62,23 +64,32 @@ h1 {
     padding: 20px;
     background-color: #eaf2f8;
     border-radius: 8px;
-    margin-left: auto;
-    overflow: hidden; /* Add a vertical scrollbar ONLY if content overflows */
+    overflow-y: auto; /* Change to auto to allow scrolling */
+    min-height: 0; /* Fix for flexbox overflow bug */
 }
 
 /* --- SVG Styles (No changes here) --- */
-.district {
+.st30 {
     fill: #aed581;
     stroke: #558b2f;
     stroke-width: 2;
-    transition: fill 0.3s ease;
+    transition: fill 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
 }
+
+svg:hover .st30:not(:hover) {
+    opacity: 0.6;
+}
+
+.st30:hover {
+    fill: #8bc34a; /* A slightly brighter green on hover */
+}
+
 #tooltip {
     position: absolute;
-    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border-radius: 4px;
     font-size: 14px;
     white-space: nowrap;
@@ -86,49 +97,10 @@ h1 {
     opacity: 0;
     transition: opacity 0.2s;
     pointer-events: none; 
+    z-index: 100;
 }
 
-        /* Targeting your existing class "st30" */
-.st30 {
-    stroke: #fff;
-    stroke-width: 1.5px;
-    transition: opacity 0.2s ease-in-out;
-    cursor: pointer;
-}
-
-        /* On hover, make other districts slightly transparent */
-svg:hover .st30:not(:hover) {
-    opacity: 0.5;
-}
-
-/* --- NEW: Styles for the tree information cards --- */
-
-.tree-card {
-    background-color: #ffffff; /* White background for the card */
-    border-radius: 6px;
-    padding: 15px;
-    margin-top: 15px; /* Space between cards */
-    border: 1px solid #dbe9f5;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.tree-card h3 {
-    margin-top: 0;
-    color: #005a8d; /* Same color as the main heading */
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-.tree-card p {
-    margin: 5px 0;
-    line-height: 1.5;
-}
-
-.tree-card p strong {
-    color: #333;
-}
-
+/* --- Slider Styles --- */
 .slider-container {
     position: relative;
     width: 100%;
@@ -136,43 +108,48 @@ svg:hover .st30:not(:hover) {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden; /* NEW: This will hide the edges of adjacent slides */
 }
 
 .slider-wrapper {
     display: flex;
-    /* The transition creates the smooth sliding animation */
     transition: transform 0.5s ease-in-out;
 }
 
 .slide {
-    /* Each slide takes up 100% of the container width */
     flex: 0 0 100%;
     padding: 0 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .slide img {
-    max-width: 100%;
-    height: 200px; /* Give a fixed height to the image */
-    object-fit: cover; /* Make sure the image covers the area nicely */
+    width: 100%; /* Make image responsive */
+    height: 200px; 
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 15px;
+    border: 1px solid #ddd;
 }
 
 .slide-content h3 {
     margin-top: 0;
     color: #005a8d;
+    font-size: 1.1em;
 }
 
 .slide-content p {
-    margin: 5px 0;
+    margin: 8px 0;
     line-height: 1.5;
+    font-size: 0.9em;
 }
 
-/* --- Slider Buttons --- */
+.slide-content p strong {
+    color: #333;
+}
+
 .slider-btn {
     position: absolute;
-    top: 40%;
+    top: 100px; /* Position relative to the image height */
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
@@ -183,6 +160,9 @@ svg:hover .st30:not(:hover) {
     font-size: 20px;
     cursor: pointer;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .slider-btn.prev {
@@ -192,3 +172,53 @@ svg:hover .st30:not(:hover) {
 .slider-btn.next {
     right: 10px;
 }
+
+.slider-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* --- NEW: Media Query for Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em; /* Reduce font size for smaller screens */
+        margin-bottom: 0;
+    }
+
+    .container {
+        flex-direction: column; /* Stack map and info panel vertically */
+        padding: 10px;
+        /* Let the container's height fit its content instead of creating an internal scroll area. */
+        /* This makes the whole page scroll naturally, revealing the info panel. */
+        flex-grow: 0;
+        overflow: visible;
+        height: auto;
+    }
+
+    #map-container {
+        /* Give the map a predictable, fixed height on mobile */
+        height: 300px;
+    }
+
+    #info-panel {
+        /* Allow the panel to be as tall as its content needs to be */
+        height: auto;
+        max-height: none;
+    }
+
+    .slide img {
+        height: 150px; /* Reduce image height on mobile */
+    }
+
+    .slider-btn {
+        top: 75px; /* Adjust button position for smaller image */
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+}
+
