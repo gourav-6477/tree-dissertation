@@ -75,6 +75,13 @@ h1 {
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     z-index: 20; /* above svg but below tooltip */
 }
+#small{
+    font-size: 10px;
+}
+#smallandcentered{
+    font-size: 10px;
+    text-align: center;
+}
 
 /* On small screens, stack map and legend vertically and avoid overlap */
 @media (max-width: 768px) {
